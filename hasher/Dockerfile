@@ -1,2 +1,2 @@
-FROM ruby:katest
+FROM ruby:alpine
 RUN gem install sinatra
