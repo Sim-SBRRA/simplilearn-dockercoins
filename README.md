@@ -1,3 +1,6 @@
+# simplilearn-dockercoins
+
+```
 GITHUB_USERNAME=academiaonline
 GITHUB_PROJECT=simplilearn-dockercoins
 GITHUB_BRANCH=2021-08
@@ -23,13 +26,13 @@ SERVICE=worker
 sudo docker image build --file ${SERVICE}/Dockerfile --tag ${GITHUB_USERNAME}/${GITHUB_PROJECT}:${GITHUB_RELEASE}-${SERVICE} ${SERVICE}/
 
 SERVICE=hasher
-sudo docker network create ${SERVICE}
+sudo docker network create --driver bridge ${SERVICE}
 
 SERVICE=redis
-sudo docker network create ${SERVICE}
+sudo docker network create --driver bridge ${SERVICE}
 
 SERVICE=rng
-sudo docker network create ${SERVICE}
+sudo docker network create --driver bridge ${SERVICE}
 
 CMD=redis-server
 ENTRYPOINT=docker-entrypoint.sh
@@ -73,3 +76,4 @@ NETWORK=redis
 WORKDIR=/${SERVICE}/
 sudo docker container run --detach --entrypoint ${ENTRYPOINT} --name ${SERVICE} --network ${NETWORK} --publish ${NODEPORT}:8080--restart always --volume ${SERVICE}/:${WORKDIR}:ro --workdir ${WORKDIR} ${GITHUB_USERNAME}/${GITHUB_PROJECT}:${GITHUB_RELEASE}-${SERVICE} ${CMD}
 
+```
